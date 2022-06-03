@@ -1,25 +1,75 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import React from "react";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import { Route, Routes, Navigate } from "react-router-dom";
+
+import Header from "./components/header/Header";
+
+import HomePage from "./pages/homepage/HomePage";
+import ShopPage from "./pages/Shop/ShopPage";
+import SignInSingUpPage from "./pages/sign-in-sing-up-page/SingInSingUpPage";
+
+import CheckoutPage from "./pages/checkout/checkout";
+
+import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
+import { onSnapshot } from "firebase/firestore";
+
+import { connect } from "react-redux";
+import { setCurrentUser } from "./redux/user/user.actions";
+
+
+class App extends React.Component {
+  unsubscribeFromAuth = null;
+  componentDidMount() {
+    const { setCurrentUser } = this.props;
+    this.unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
+      if (userAuth) {
+        const userRef = await createUserProfileDocument(userAuth);
+        onSnapshot(userRef, (snapShot) => {
+          setCurrentUser({
+            id: snapShot.id,
+            ...snapShot.data(),
+          });
+        });
+      } else {
+        setCurrentUser(userAuth);
+      }
+    });
+  }
+  componentWillUnmount() {
+    this.unsubscribeFromAuth();
+  }
+  render() {
+    return (
+      <div>
+        <Header />
+        <Routes>
+          <Route exact path='/' element={<HomePage />} />
+          <Route path='/shop' element={<ShopPage />} />
+          <Route
+            path='/signin'
+            element={
+              this.props.currentUser ? (
+                <Navigate to='/' />
+              ) : (
+                <SignInSingUpPage />
+              )
+            }
+          />
+
+          <Route exact path='/checkout' element={<CheckoutPage />} />
+        </Routes>
+      </div>
+    );
+  }
 }
 
-export default App;
+const mapStateToProps = ({ user}) => ({
+  currentUser: user.currentUser
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  setCurrentUser: (user) => dispatch(setCurrentUser(user)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
