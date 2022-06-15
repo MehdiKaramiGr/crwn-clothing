@@ -18,7 +18,7 @@ const removeItemFromCart = (cartItems, cartItemToRemove) => {
 		(cartItem) => cartItem.id === cartItemToRemove.id
 	);
 	if (existingCartItem.quantity === 1) {
-		return cartItems.filter((cartItem) => cartItem.id != cartItemToRemove.id);
+		return cartItems.filter((cartItem) => cartItem.id !== cartItemToRemove.id);
 	} else {
 		return cartItems.map((cartItem) =>
 			cartItem.id === cartItemToRemove.id

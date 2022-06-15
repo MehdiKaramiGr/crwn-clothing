@@ -1,27 +1,15 @@
-import React, { Component } from "react";
-import CollectionPreview from "../../components/collection-preview/CollectionPreview";
+import React from "react";
+import { Outlet } from "react-router-dom";
+
+import CollectionOverview from "../../components/collection-overview/CollectionOverview";
 
 import "./ShopPage.scss";
 
-import SHOP_DATA from "./shop.data";
-
-class ShopPage extends Component {
-  constructor(props) {
-    super(props);
-  }
-  state = { collections: SHOP_DATA };
-  render() {
-    let { collections } = this.state;
-    return (
-      <div>
-        {collections
-          .filter((item, idx) => idx < 4)
-          .map(({ id, ...otherCollectionProps }) => (
-            <CollectionPreview key={id} {...otherCollectionProps} />
-          ))}
-      </div>
-    );
-  }
-}
+const ShopPage = (props) => {
+	return(
+	<div>
+		<Outlet/>
+	</div>
+);}
 
 export default ShopPage;
