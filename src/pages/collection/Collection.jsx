@@ -15,8 +15,6 @@ const CollectionPage = () => {
 		selectCollection(collectionID)(state)
 	);
 	const {title , items} = collection
-	console.log(title , items)
-	console.log("collection", collection);
 	return (
 		<div className="collection-page">
 			<h2 className="title">{title}</h2>

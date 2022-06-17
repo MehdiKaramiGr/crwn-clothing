@@ -12,6 +12,8 @@ import CheckoutItem from "../../components/checkout-item/CheckoutItem";
 import "./checkout.scss";
 import StripeButton from "../../components/stripe-button/StripeButton";
 
+
+
 const CheckoutPage = ({ cartItems, total }) => (
 	<div className="checkout-page">
 		<div className="checkout-header">
@@ -42,7 +44,7 @@ const CheckoutPage = ({ cartItems, total }) => (
 			<br />
 			4242 4242 4242 4242 - Exp: 01/24 - CVV:123
 		</div>
-		<StripeButton price={total}/>
+		<StripeButton price={total} />
 	</div>
 );
 
