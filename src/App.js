@@ -1,26 +1,27 @@
 import "./App.css";
 import React from "react";
 
-import { Route, Routes, Navigate } from "react-router-dom";
+// Components
+import Header from "./components/header/Header.component";
+import HomePage from "./pages/homepage/HomePage.component";
+import ShopPage from "./pages/Shop/ShopPage.component";
+import SignInSingUpPage from "./pages/sign-in-sing-up-page/SingInSingUpPage.component";
+import CheckoutPage from "./pages/checkout/Checkout.component";
+import CollectionOverview from "./components/collection-overview/CollectionOverview.component";
+import CollectionPage from "./pages/collection/Collection.component";
 
-import Header from "./components/header/Header";
-
-import HomePage from "./pages/homepage/HomePage";
-import ShopPage from "./pages/Shop/ShopPage";
-import SignInSingUpPage from "./pages/sign-in-sing-up-page/SingInSingUpPage";
-
-import CheckoutPage from "./pages/checkout/checkout";
-
-import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
-import { onSnapshot } from "firebase/firestore";
-
+// Reudx
 import { connect } from "react-redux";
 import { setCurrentUser } from "./redux/user/user.actions";
-
-import { createStructuredSelector } from "reselect";
 import { selectCurrentUser } from "./redux/user/user.selectors";
-import CollectionOverview from "./components/collection-overview/CollectionOverview";
-import CollectionPage from "./pages/collection/Collection";
+import { createStructuredSelector } from "reselect";
+
+// React-Router
+import { Route, Routes, Navigate } from "react-router-dom";
+
+// Firebase/Auth
+import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
+import { onSnapshot } from "firebase/firestore";
 
 class App extends React.Component {
 	unsubscribeFromAuth = null;
