@@ -8,6 +8,12 @@ const CollectionItemContainer = styled.div`
 	height: 350px;
 	align-items: center;
 	position: relative;
+	padding-block: 10px;
+	@media only screen and (max-width:1025px){
+		width: 280px;
+		
+		
+	}
 	&:hover {
 		.image {
 			opacity: 0.8;
@@ -37,11 +43,14 @@ const BackgroundImage = styled.div`
 `;
 
 const CollectionFooterContainer = styled.div`
-	width: 100%;
+	width: 100%;       
+	font-weight: 500;
 	height: 5%;
+	padding-inline:10px;
 	display: flex;
 	justify-content: space-between;
 	font-size: 18px;
+	
 `;
 
 const NameContainer = styled.span`

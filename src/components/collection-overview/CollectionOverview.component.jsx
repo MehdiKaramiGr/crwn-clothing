@@ -6,12 +6,13 @@ import {CollectionsOverviewContainer} from './CollectionOverview.styles'
 // Components
 import CollectionPreview from "../collection-preview/CollectionPreview.component";
 
-// redux
+// Redux
 import { connect } from "react-redux";
 import { selectCollectionForPreview } from "../../redux/shop/shop.selectors";
 import { createStructuredSelector } from "reselect";
 
-const CollectionOverview = ({ collections }) => {
+const CollectionOverview = (props) => {
+	const collections = props.collections
 	return (
 		<CollectionsOverviewContainer >
 			{collections

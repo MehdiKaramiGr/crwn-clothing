@@ -7,13 +7,12 @@ import HomePage from "./pages/homepage/HomePage.component";
 import ShopPage from "./pages/Shop/ShopPage.component";
 import SignInSingUpPage from "./pages/sign-in-sing-up-page/SingInSingUpPage.component";
 import CheckoutPage from "./pages/checkout/Checkout.component";
-import CollectionOverview from "./components/collection-overview/CollectionOverview.component";
-import CollectionPage from "./pages/collection/Collection.component";
 
 // Reudx
 import { connect } from "react-redux";
 import { setCurrentUser } from "./redux/user/user.actions";
 import { selectCurrentUser } from "./redux/user/user.selectors";
+import { selectCollectionForPreview } from "./redux/shop/shop.selectors";
 import { createStructuredSelector } from "reselect";
 
 // React-Router
@@ -50,10 +49,7 @@ class App extends React.Component {
 				<Header />
 				<Routes>
 					<Route exact path="/" element={<HomePage />} />
-					<Route path="/shop" element={<ShopPage />}>
-						<Route exact path="" element={<CollectionOverview />} />
-						<Route path=":collectionID" element={<CollectionPage />} />
-					</Route>
+					<Route path="/shop/*" element={<ShopPage />} />
 					<Route
 						path="/signin"
 						element={
@@ -74,6 +70,7 @@ class App extends React.Component {
 
 const mapStateToProps = createStructuredSelector({
 	currentUser: selectCurrentUser,
+	collectionsArray: selectCollectionForPreview,
 });
 
 const mapDispatchToProps = (dispatch) => ({

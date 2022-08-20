@@ -10,11 +10,21 @@ import {
 // Components
 import CollectionItem from "../collection-item/CollectionItem.component";
 
+// react-router-dom "for navigating to collections"
+import { useNavigate, useLocation } from "react-router-dom";
 
-const CollectionPreview = ({ title, items }) => {
+const CollectionPreview = ({ title, items, routeName }) => {
+	let navigate = useNavigate();
+	let { pathname } = useLocation();
 	return (
 		<CollectionPreviewContainer>
-			<TitleContainer>{title.toUpperCase()}</TitleContainer>
+			<TitleContainer
+				onClick={() => {
+					navigate(`${pathname}/${routeName}`);
+				}}
+			>
+				{title.toUpperCase()}
+			</TitleContainer>
 			<PreviewContainer>
 				{items
 					.filter((item, idx) => idx < 4)

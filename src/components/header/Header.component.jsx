@@ -1,4 +1,4 @@
-import React from "react";
+import {React , useState} from "react";
 
 // Styled Components
 import {
@@ -24,6 +24,7 @@ import { selectCurrentUser } from "../../redux/user/user.selectors";
 import { auth } from "../../firebase/firebase.utils";
 
 const Header = ({ currentUser, hidden }) => {
+	const [headerVisibility , setHeaderVisibility]=useState(false)
 	return (
 		<HeaderContainer>
 			<LogoContainer to="/">
