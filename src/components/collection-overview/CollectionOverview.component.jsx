@@ -1,7 +1,7 @@
 import React from "react";
 
 // Styled Components
-import {CollectionsOverviewContainer} from './CollectionOverview.styles'
+import { CollectionsOverviewContainer } from "./CollectionOverview.styles";
 
 // Components
 import CollectionPreview from "../collection-preview/CollectionPreview.component";
@@ -12,14 +12,13 @@ import { selectCollectionForPreview } from "../../redux/shop/shop.selectors";
 import { createStructuredSelector } from "reselect";
 
 const CollectionOverview = (props) => {
-	const collections = props.collections
+	console.log(props);
+	const collections = props.collections;
 	return (
-		<CollectionsOverviewContainer >
-			{collections
-				.filter((item, idx) => idx < 4)
-				.map(({ id, ...otherCollectionProps }) => (
-					<CollectionPreview key={id} {...otherCollectionProps} />
-				))}
+		<CollectionsOverviewContainer>
+			{collections.map(({ id, ...otherCollectionProps }) => (
+				<CollectionPreview key={id} {...otherCollectionProps} />
+			))}
 		</CollectionsOverviewContainer>
 	);
 };

@@ -1,4 +1,4 @@
-import React from "react";
+import { React } from "react";
 
 // Styled Components
 import {
@@ -11,17 +11,13 @@ import {
 import CollectionItem from "../../components/collection-item/CollectionItem.component";
 
 // Redux
-import { useSelector } from "react-redux";
+import { connect } from "react-redux";
+import { createStructuredSelector } from "reselect";
 import { selectCollection } from "../../redux/shop/shop.selectors";
 
-// React-Router
-import { useParams } from "react-router-dom";
-
-const CollectionPage = () => {
-	let { collectionID } = useParams();
-	const collection = useSelector((state) =>
-		selectCollection(collectionID)(state)
-	);
+const CollectionPage = (props) => {
+	console.log(props);
+	const { collection } = props;
 	const { title, items } = collection;
 	return (
 		<CollectionPageContainer>
@@ -35,4 +31,9 @@ const CollectionPage = () => {
 	);
 };
 
-export default CollectionPage;
+const mapStateToProps = createStructuredSelector({
+	collection: (state, ownProps) =>
+		selectCollection(ownProps.route.params.collectionID)(state),
+});
+
+export default connect(mapStateToProps)(CollectionPage);
